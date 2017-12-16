@@ -1,21 +1,106 @@
 <template>
     <div id="app">
-        <img src="./assets/logo.png" />
-        <router-view />
+        <div>
+            <div class="masthead">Bowen PLC</div>
+        </div>
+        <div id="contentContainer">
+            <div id="tabsBar">
+                <div id="tabsContainer">
+                    <button v-on:click="switchTab('IO')" v-bind:class="activeTabStyle('IO')">I/O</button>
+                    <button v-on:click="switchTab('Configuration')" v-bind:class="activeTabStyle('Configuration')">Configuration</button>
+                    <button v-on:click="switchTab('Programs')" v-bind:class="activeTabStyle('Programs')">Programs</button>
+                </div>
+            </div>
+            <div id="mainContent">
+                <router-view />
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-    export default { name: 'app', };
+    export default {
+        name: 'app',
+        methods: {
+            activeTabStyle: function(tabName) {
+                return this.$route.name === tabName ? 'selectedTab' : 'unselectedTab';
+            },
+            switchTab: function(tabName) {
+                this.$router.push(tabName);
+            },
+        },
+        data() {
+            return {
+                route: this.$route,
+            };
+        },
+    };
 </script>
 
-<style>
+<style lang="scss">
+    $main-background-color: #F0F0F0;
+
     #app {
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
-        margin-top: 60px;
+        background-color: rgb(0, 0, 202);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+
+    .masthead {
+        font-weight: bold;
+        font-size: 3em;
+        font-family: Impact;
+        color: white;
+        margin-left: 1em;
+    }
+
+    #tabsBar {
+        background-color: #5555FF;
+        flex: 0 1 auto;
+    }
+
+    #tabsContainer {
+        margin-left: 1em;
+        vertical-align: bottom;
+    }
+
+    #tabsContainer > button {
+        border: none;
+        font-size: 1.5em;
+    }
+
+    #tabsContainer > button:focus {
+        outline: 0;
+    }
+
+    #contentContainer {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+
+    .unselectedTab {
+        background-color: #5555FF;
+        color: white;
+    }
+
+    .selectedTab {
+        background-color: $main-background-color;
+        border-radius: .5em .5em 0 0;
+    }
+
+    #mainContent {
+        background-color: $main-background-color;
+        flex: 1 1 auto;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
     }
 </style>

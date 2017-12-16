@@ -88,7 +88,7 @@ module.exports = {
     'no-shadow-restricted-names': 'error',
     'no-undef': 'error',
     'no-undef-init': 'error',
-    'no-unused-vars': 'error',
+    'no-unused-vars': 'warn',
     'array-bracket-spacing': ['error', 'always'],
     'block-spacing': 'warn',
     'brace-style': ['warn', '1tbs', { 'allowSingleLine': true }],
