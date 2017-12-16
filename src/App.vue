@@ -19,6 +19,8 @@
 </template>
 
 <script>
+    import { mapActions, } from 'vuex';
+
     export default {
         name: 'app',
         methods: {
@@ -28,11 +30,13 @@
             switchTab: function(tabName) {
                 this.$router.push(tabName);
             },
+            ...mapActions([ 'getConfig', ]),
+        },
+        mounted() {
+            this.getConfig();
         },
         data() {
-            return {
-                route: this.$route,
-            };
+            return { route: this.$route, };
         },
     };
 </script>
