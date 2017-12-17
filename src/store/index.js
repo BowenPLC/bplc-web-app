@@ -8,6 +8,14 @@ const store = {
     state: {
         configuration: undefined,
         status: {},
+        ioMap: {},
+    },
+    getters: {
+        getIO: state => {
+            return (moduleName, index) => {
+                return state.ioMap[ moduleName ][ index ];
+            };
+        },
     },
     mutations: {
         setConfig(state, configuration) {
@@ -15,6 +23,9 @@ const store = {
         },
         setStatus(state, status) {
             state.status = status;
+        },
+        setIOMap(state, ioMap) {
+            state.ioMap = ioMap;
         },
     },
     actions: {
@@ -31,6 +42,22 @@ const store = {
         },
         async getStatus({ commit, }) {
             commit('setStatus', {});
+        },
+        async getCompleteIOMap({ commit, }) {
+            const newMap = {};
+            try {
+                (await api.getCompleteIOMap()).forEach(mod => {
+                    newMap[ mod.name ] = mod.data;
+                });
+            } catch (err) {
+                // eslint-disable-next-line
+                console.log(err);
+            }
+
+            commit('setIOMap', newMap);
+        },
+        async setIOState({ commit, }, [ mod, index, state, ]) {
+            api.setIO(mod, index, state);
         },
     },
 };

@@ -13,7 +13,6 @@
     import { mapState, } from 'vuex';
 
     export default {
-        name: 'Configuration',
         computed: {
             ...mapState([ 'configuration', ]),
             formattedConfig: function() {

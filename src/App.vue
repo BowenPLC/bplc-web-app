@@ -22,7 +22,6 @@
     import { mapActions, } from 'vuex';
 
     export default {
-        name: 'app',
         methods: {
             activeTabStyle: function(tabName) {
                 return this.$route.name === tabName ? 'selectedTab' : 'unselectedTab';
@@ -30,10 +29,17 @@
             switchTab: function(tabName) {
                 this.$router.push(tabName);
             },
-            ...mapActions([ 'getConfig', ]),
+            ...mapActions([ 'getConfig', 'getCompleteIOMap', ]),
         },
         mounted() {
-            this.getConfig();
+            let gotInitialState = false;
+            setInterval(() => {
+                this.getCompleteIOMap();
+                if (!gotInitialState) {
+                    gotInitialState = true;
+                    this.getConfig();
+                }
+            }, 150);
         },
         data() {
             return { route: this.$route, };
