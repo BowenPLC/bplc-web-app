@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const port = 8081;
-const basePath = `http://localhost:${port}/v1`;
+const basePath = `${location.origin.replace(':8080', `:${port}`)}/v1`;
 
 export default {
     async getConfig() {
