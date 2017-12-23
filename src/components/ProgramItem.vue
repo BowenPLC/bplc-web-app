@@ -8,6 +8,7 @@
 
 <script>
     import { mapGetters, } from 'vuex';
+    import api from '../utils/api';
 
     export default {
         props: {
@@ -18,8 +19,10 @@
         },
         methods: {
             run() {
+                api.startProgram(this.programName);
             },
             stop() {
+                api.stopProgram();
             },
         },
     };

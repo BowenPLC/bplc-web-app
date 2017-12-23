@@ -16,4 +16,10 @@ export default {
     async getPrograms() {
         return (await axios.get(`${basePath}/programs`)).data;
     },
+    async startProgram(programName) {
+        await axios.post(`${basePath}/programs/run`, { programName: programName, });
+    },
+    async stopProgram() {
+        await axios.post(`${basePath}/programs/stop`);
+    },
 };
