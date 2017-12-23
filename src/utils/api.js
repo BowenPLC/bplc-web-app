@@ -13,4 +13,7 @@ export default {
     async setIO(mod, index, state) {
         await axios.post(`${basePath}/io/${mod}/${index}`, { state: state, });
     },
+    async getPrograms() {
+        return (await axios.get(`${basePath}/programs`)).data;
+    },
 };

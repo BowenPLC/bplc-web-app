@@ -7,6 +7,7 @@ Vue.use(Vuex);
 const store = {
     state: {
         configuration: undefined,
+        programs: [],
         status: {},
         ioMap: {},
     },
@@ -26,6 +27,9 @@ const store = {
         },
         setIOMap(state, ioMap) {
             state.ioMap = ioMap;
+        },
+        setPrograms(state, programs) {
+            state.programs = programs;
         },
     },
     actions: {
@@ -58,6 +62,17 @@ const store = {
         },
         async setIOState({ commit, }, [ mod, index, state, ]) {
             api.setIO(mod, index, state);
+        },
+        async getPrograms({ commit, }) {
+            let programs;
+            try {
+                programs = await api.getPrograms();
+            } catch (err) {
+                // eslint-disable-next-line
+                console.log(err);
+            }
+
+            commit('setPrograms', programs);
         },
     },
 };

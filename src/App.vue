@@ -29,7 +29,7 @@
             switchTab: function(tabName) {
                 this.$router.push(tabName);
             },
-            ...mapActions([ 'getConfig', 'getCompleteIOMap', ]),
+            ...mapActions([ 'getConfig', 'getPrograms', 'getCompleteIOMap', ]),
         },
         mounted() {
             let gotInitialState = false;
@@ -38,6 +38,7 @@
                 if (!gotInitialState) {
                     gotInitialState = true;
                     this.getConfig();
+                    this.getPrograms();
                 }
             }, 150);
         },
